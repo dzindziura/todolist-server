@@ -1,7 +1,7 @@
-const PORT = 5432;
-const HOST = "dpg-cg1paod269vfsnt7aiqg-a";
-const USER = "root";
-const PASSWORD = "tJyvRhIlrj89sNsQQaFOKLh9Z2wpTVrl";
+const PORT = 3306;
+const HOST = "sql7.freemysqlhosting.net";
+const USER = "sql7602932";
+const PASSWORD = "f9m7gfrsGY";
 const DATABASE = "clover_db";
 
 module.exports = {
