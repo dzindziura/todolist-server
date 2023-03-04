@@ -1,12 +1,16 @@
 const fs = require("fs");
 const mysql = require("mysql2");
-
+const {    PORT,
+    HOST,
+    USER,
+    PASSWORD,
+    DATABASE} = require('./constants/constants.js')
 let connection;
 connection = mysql.createConnection({
-    // port: '8889',
-    host: 'localhost',
-    user: 'root',
-    password: '',
+    port: PORT,
+    host: HOST,
+    user: USER,
+    password: PASSWORD,
     database: 'clover_db'
 });
 
