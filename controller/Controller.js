@@ -34,6 +34,7 @@ const addCards = async (req, res) => {
     const card = {
       Task: req.body.Task,
       board_id: req.body.board_id,
+      cards_id: req.body.cards_id
     };
 
     const result = await connection
@@ -70,21 +71,23 @@ const getBoards = async (req, res) => {
 
 const updateCard = async (req, res) => {
   try {
-    const { id, board_id, position } = req.body;
+    const { id, board_id, position, cards_id } = req.body;
+    console.log(cards_id)
     if (board_id === undefined) {
       position.map((item, index) => {
         connection.query(
-          `UPDATE cards SET position ='${index}' WHERE id=${item}`
+          `UPDATE cards SET position ='${index}' WHERE cards_id='${item}'`
         );
       });
       res.json({ message: "success" });
     } else {
       await connection
         .promise()
-        .query(`UPDATE cards SET board_id ='${board_id}' WHERE id=${id}`);
+        .query(`UPDATE cards SET board_id ='${board_id}' WHERE cards_id='${cards_id}'`);
       position.map((item, index) => {
+        console.log(item)
         connection.query(
-          `UPDATE cards SET position ='${index}' WHERE id=${item}`
+          `UPDATE cards SET position ='${index}' WHERE cards_id='${item}'`
         );
       });
       res.json({ message: "success" });
