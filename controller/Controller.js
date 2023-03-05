@@ -31,12 +31,13 @@ const createBoards = async (req, res) => {
 
 const addCards = async (req, res) => {
   try {
+    console.log(req.body)
     const card = {
       Task: req.body.Task,
       board_id: req.body.board_id,
-      cards_id: req.body.cards_id
+      id: req.body.id
     };
-
+    
     const result = await connection
       .promise()
       .query("INSERT INTO cards SET ?", card);
@@ -71,23 +72,22 @@ const getBoards = async (req, res) => {
 
 const updateCard = async (req, res) => {
   try {
-    const { id, board_id, position, cards_id } = req.body;
-    console.log(cards_id)
+    const { id, board_id, position} = req.body;
     if (board_id === undefined) {
       position.map((item, index) => {
         connection.query(
-          `UPDATE cards SET position ='${index}' WHERE cards_id='${item}'`
+          `UPDATE cards SET position ='${index}' WHERE id='${item}'`
         );
       });
       res.json({ message: "success" });
     } else {
       await connection
         .promise()
-        .query(`UPDATE cards SET board_id ='${board_id}' WHERE cards_id='${cards_id}'`);
+        .query(`UPDATE cards SET board_id ='${board_id}' WHERE id='${id}'`);
       position.map((item, index) => {
         console.log(item)
         connection.query(
-          `UPDATE cards SET position ='${index}' WHERE cards_id='${item}'`
+          `UPDATE cards SET position ='${index}' WHERE id='${item}'`
         );
       });
       res.json({ message: "success" });
@@ -102,7 +102,7 @@ const deleteCard = async (req, res) => {
   try {
     const [result] = await connection
       .promise()
-      .query(`DELETE FROM cards WHERE id = ${req.params.id}`);
+      .query(`DELETE FROM cards WHERE id = '${req.params.id}'`);
     res.json({ results: result });
   } catch (error) {
     console.error("Error deleting card:", error.stack);
