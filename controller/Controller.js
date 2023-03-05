@@ -31,7 +31,6 @@ const createBoards = async (req, res) => {
 
 const addCards = async (req, res) => {
   try {
-    console.log(req.body)
     const card = {
       Task: req.body.Task,
       board_id: req.body.board_id,
@@ -85,7 +84,6 @@ const updateCard = async (req, res) => {
         .promise()
         .query(`UPDATE cards SET board_id ='${board_id}' WHERE id='${id}'`);
       position.map((item, index) => {
-        console.log(item)
         connection.query(
           `UPDATE cards SET position ='${index}' WHERE id='${item}'`
         );
@@ -127,7 +125,6 @@ const deleteBoard = (req, res) => {
 };
 
 const updateTitleBoard = (req, res) => {
-  console.log(req.body);
   connection.query(
     `UPDATE boards SET Title = "${req.body.name}" WHERE uuid = "${req.body.id}"`,
     (error, results, fields) => {
